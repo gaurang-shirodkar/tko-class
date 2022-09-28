@@ -53,6 +53,9 @@ jobs:
         chmod +x ./sysdig-cli-scanner
         ./sysdig-cli-scanner --apiurl ${{ env.SYSDIG_URL }} ${{ steps.meta.outputs.images }}${{ steps.meta.outputs.tags }} --output-json=/tmp/${{ env.APP_NAME }}.json
       
+    - name: Load Docker image
+      run: docker push ${{ steps.meta.outputs.images }}${{ steps.meta.outputs.tags }}
+      
     # - name: Build Docker Image 
     #   run: docker build . --file Dockerfile --tag my-image-name:${{ steps.get_version.outputs.VERSION }}
       
