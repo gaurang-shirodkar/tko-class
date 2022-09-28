@@ -42,7 +42,7 @@ jobs:
       with:
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-        context: ./application
+        context: .
         push: false
     
     - name: Scan Image New
