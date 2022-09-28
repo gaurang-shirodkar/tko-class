@@ -27,7 +27,7 @@ jobs:
       id: meta
       uses: docker/metadata-action@v3
       with:
-        images: ${{ env.APP_NAME }}
+        images: ${{ env.REGISTRY }}/${{ env.APP_NAME }}
         tags: |
           type=raw,priority=100,enable=${{ github.event_name == 'push' }},value=${{ steps.get_version.outputs.VERSION }}
         labels: |
@@ -51,7 +51,7 @@ jobs:
       run: |
         curl -LO "https://download.sysdig.com/scanning/bin/sysdig-cli-scanner/$(curl -L -s https://download.sysdig.com/scanning/sysdig-cli-scanner/latest_version.txt)/linux/amd64/sysdig-cli-scanner"
         chmod +x ./sysdig-cli-scanner
-        ./sysdig-cli-scanner --apiurl ${{ env.SYSDIG_URL }} ${{ env.REGISTRY }}/${{ steps.meta.outputs.images }}${{ steps.meta.outputs.tags }} --output-json=/tmp/${{ env.APP_NAME }}.json
+        ./sysdig-cli-scanner --apiurl ${{ env.SYSDIG_URL }} ${{ steps.meta.outputs.images }}${{ steps.meta.outputs.tags }} --output-json=/tmp/${{ env.APP_NAME }}.json
       
     # - name: Build Docker Image 
     #   run: docker build . --file Dockerfile --tag my-image-name:${{ steps.get_version.outputs.VERSION }}
