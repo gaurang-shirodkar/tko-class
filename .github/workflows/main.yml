@@ -21,7 +21,7 @@ jobs:
       run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
     
     - name: Test
-      run: echo "something"
+      run: echo "something else"
     
     - name: Docker metadata tag set (or use some another method)
       id: meta
